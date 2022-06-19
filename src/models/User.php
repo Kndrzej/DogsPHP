@@ -1,85 +1,61 @@
 <?php
 
-class User{
-    private $email;
-    private $password;
-    private $name;
-    private $surname;
+class User {
+    private string $email;
+    private string $password;
+    private string $name;
+    private string $surname;
+    private string $phone;
 
-    public function _construct(
+    public function __construct(
         string $email,
         string $password,
         string $name,
         string $surname
-    ){
+    ) {
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSurname()
+    public function getSurname(): string
     {
         return $this->surname;
     }
 
-    /**
-     * @param mixed $surname
-     */
-    public function setSurname($surname)
+    public function setSurname(string $surname): void
     {
         $this->surname = $surname;
     }
 
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone($phone): void
+    {
+        $this->phone = $phone;
+    }
 }

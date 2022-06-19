@@ -1,12 +1,14 @@
-<link href="public/css/style.css" rel="stylesheet" type="text/css" />
 <?php
 
 require 'Routing.php';
 
-$path = trim($_SERVER['REQUEST_URI'],'/');
-$path = parse_url($path, PHP_URL_PATH);
+$path = trim($_SERVER['REQUEST_URI'], '/');
+$path = parse_url( $path, PHP_URL_PATH);
 
-Routing::get('index', 'DefaultController');
-Routing::get('projects', 'DefaultController');
+Router::get('', 'DefaultController');
+Router::get('projects', 'DefaultController');
+Router::post('login', 'SecurityController');
+Router::post('addProject', 'ProjectController');
+Router::post('register', 'SecurityController');
 
-Routing::run($path);
+Router::run($path);
