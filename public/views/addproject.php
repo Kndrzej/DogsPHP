@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
 <head>
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/projects.css">
 
-    <script src="https://kit.fontawesome.com/723297a893.js" crossorigin="anonymous"></script>
-    <title>PROJECTS</title>
+
+    <title>DogsPHP</title>
 </head>
 
 <body>
 <div class="base-container">
     <nav>
-        <img src="public/img/logo.svg">
+        <img src="public/img/dog.jpg">
         <ul>
             <li>
                 <i class="fas fa-project-diagram"></i>
@@ -41,18 +42,24 @@
                 <i class="fas fa-plus"></i> add project
             </div>
         </header>
-        <section class="projects">
-            <div id="project-1">
-                <img src="public/img/uploads/project_smile.jpg">
-                <div>
-                    <h2>title</h2>
-                    <p>description</p>
-                    <div class="social-section">
-                        <i class="fas fa-heart"> 600</i>
-                        <i class="fas fa-minus-square"> 121</i>
-                    </div>
+        <section class="project-form">
+            <h1>UPLOAD</h1>
+            <form action="addproject" method="POST" ENCTYPE="multipart/form-data">
+                <div class="messages">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
                 </div>
-            </div>
+                <input name="title" type="text" placeholder="title">
+                <textarea name="description" rows=5 placeholder="description"></textarea>
+
+                <input type="file" name="file"/><br/>
+                <button type="submit">send</button>
+            </form>
         </section>
     </main>
 </div>

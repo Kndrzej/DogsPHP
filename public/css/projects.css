@@ -1,0 +1,19 @@
+section.project-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.project-form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 40%;
+}
+body {
+    background-color: lightpink;
+}
+@media screen and (max-width: 420px) {
+    body {
+        background-color: lightblue;
+    }
+}
