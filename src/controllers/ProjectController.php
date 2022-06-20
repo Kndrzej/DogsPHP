@@ -1,8 +1,8 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__ .'/../models/Project.php';
-require_once __DIR__.'/../repository/ProjectRepository.php';
+require_once 'src/models/Project.php';
+
 
 class ProjectController extends AppController {
 
@@ -16,7 +16,7 @@ class ProjectController extends AppController {
     public function __construct()
     {
         parent::__construct();
-        $this->projectRepository = new ProjectRepository();
+       // $this->projectRepository = new ProjectRepository();
     }
 
     public function addProject()
@@ -27,11 +27,11 @@ class ProjectController extends AppController {
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['file']['name']
             );
             $project = new Project($_POST['title'], $_POST['description'], $_FILES['file']['name']);
-            $this->projectRepository->addProject($project);
+            //$this->projectRepository->addProject($project);
 
             return $this->render('projects', ['messages' => $this->message]);
         }
-        return $this->render('add-project', ['messages' => $this->message]);
+        return $this->render('addproject', ['messages' => $this->message]);
     }
 
     private function validate(array $file): bool

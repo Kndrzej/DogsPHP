@@ -13,5 +13,12 @@
         <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="postgres@localhost" uuid="cdb83ec4-cf20-4be9-aa86-ea184d94d07f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

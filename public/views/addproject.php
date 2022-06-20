@@ -44,7 +44,7 @@
         </header>
         <section class="project-form">
             <h1>UPLOAD</h1>
-            <form action="addproject" method="POST" ENCTYPE="multipart/form-data">
+            <form action="addProject" method="POST" ENCTYPE="multipart/form-data">
                 <div class="messages">
                     <?php
                     if(isset($messages)){
