@@ -10,6 +10,9 @@
     <div class="logo">
         <img src="public/img/dog.jpg">
     </div>
+    <div class="logo">
+        <img src="public/img/dog.jpg">
+    </div>
     <div class="login-container">
         <form class="login" action="login" method="POST">
             <div class="messages">

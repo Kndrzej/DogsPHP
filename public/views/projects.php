@@ -29,6 +29,10 @@
                 <i class="fas fa-project-diagram"></i>
                 <a href="#" class="button">projects</a>
             </li>
+            <li>
+                <i class="fas fa-project-diagram"></i>
+                <a href="#" class="button">projects</a>
+            </li>
         </ul>
     </nav>
     <main>

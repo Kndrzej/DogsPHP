@@ -15,6 +15,7 @@
         <ul>
             <li>
                 <i class="fas fa-project-diagram"></i>
+                <i class="fas fa-project-diagram"></i>
                 <a href="#" class="button">projects</a>
             </li>
             <li>
