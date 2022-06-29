@@ -19,13 +19,6 @@ class ProjectController extends AppController {
         $this->projectRepository = new ProjectRepository();
     }
 
-    public function projects()
-    {
-        if(isset($projects))
-            $projects = $this->projectRepository->getProjects();
-        $this->render('projects', ['projects' => $projects]);
-    }
-
     public function addProject()
     {
         if ($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
@@ -34,7 +27,6 @@ class ProjectController extends AppController {
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['file']['name']
             );
 
-            // TODO create new project object and save it in database
             $project = new Project($_POST['title'], $_POST['description'], $_FILES['file']['name']);
             $this->projectRepository->addProject($project);
 
