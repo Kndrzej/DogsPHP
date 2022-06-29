@@ -43,7 +43,7 @@
             </div>
         </header>
         <section class="projects">
-            <?php if(isset($projects)) foreach($projects as $project): ?>
+            <?php foreach($projects as $project): ?>
                 <div id="project-1">
                     <img src="public/uploads/<?= $project->getImage(); ?>">
                     <div>

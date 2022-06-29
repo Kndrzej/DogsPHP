@@ -64,7 +64,7 @@ class ProjectRepository extends Repository
                 $project['image']
             );
         }
-
+        var_dump($stmt);
         return $result;
     }
 

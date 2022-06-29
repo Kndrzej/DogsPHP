@@ -9,10 +9,12 @@ class Router {
     public static $routes;
 
     public static function get($url, $view) {
+        $url = strtolower($url);
         self::$routes[$url] = $view;
     }
 
     public static function post($url, $view) {
+         $url = strtolower($url);
         self::$routes[$url] = $view;
     }
 

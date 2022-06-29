@@ -1,11 +1,11 @@
 <?php
 
 class User {
-    private string $email;
-    private string $password;
-    private string $name;
-    private string $surname;
-    private string $phone;
+    private $email;
+    private $password;
+    private $name;
+    private $surname;
+    private $phone;
 
     public function __construct(
         string $email,

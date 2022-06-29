@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/projects.css">
 
 
-    <title>DogsPHP</title>
+    <title>PROJECTS</title>
 </head>
 
 <body>
@@ -14,7 +14,6 @@
         <img src="public/img/dog.jpg">
         <ul>
             <li>
-                <i class="fas fa-project-diagram"></i>
                 <i class="fas fa-project-diagram"></i>
                 <a href="#" class="button">projects</a>
             </li>
@@ -45,7 +44,7 @@
         </header>
         <section class="project-form">
             <h1>UPLOAD</h1>
-            <form action="addProject" method="POST" ENCTYPE="multipart/form-data">
+            <form action="addproject" method="POST" ENCTYPE="multipart/form-data">
                 <div class="messages">
                     <?php
                     if(isset($messages)){

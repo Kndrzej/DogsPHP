@@ -1,6 +1,5 @@
 <?php
 
-
 class Project {
     private $title;
     private $description;
