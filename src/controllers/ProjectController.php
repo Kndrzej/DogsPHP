@@ -27,15 +27,18 @@ class ProjectController extends AppController {
 
     public function addProject()
     {
+        if (empty($_SESSION['is_admin'])) {
+            return $this->render('login', ['messages' => ['Only admin can do this!']]);
+        }
+
         if ($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
             move_uploaded_file(
                 $_FILES['file']['tmp_name'],
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['file']['name']
             );
 
-            // TODO create new project object and save it in database
             $project = new Project($_POST['title'], $_POST['description'], $_FILES['file']['name']);
-            $this->projectRepository->addProject($project);
+            $this->projectRepository->addProject($project, (new UserRepository())->getUser($_SESSION['email']));
 
             return $this->render('projects', [
                 'messages' => $this->message,

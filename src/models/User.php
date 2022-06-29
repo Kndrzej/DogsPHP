@@ -7,19 +7,22 @@ class User {
     private $surname;
     private $phone;
     private $admin;
+    private $id;
 
     public function __construct(
         string $email,
         string $password,
         string $name,
         string $surname,
-        bool $admin
+        bool $admin,
+        int $id
     ) {
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
         $this->admin = $admin;
+        $this->id = $id;
     }
 
     public function getEmail(): string
@@ -70,5 +73,10 @@ class User {
     public function setAdmin(bool $admin): void
     {
         $this->admin = $admin;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

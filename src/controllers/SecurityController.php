@@ -37,6 +37,8 @@ class SecurityController extends AppController {
             return $this->render('login', ['messages' => ['Wrong password!']]);
         }
 
+        $_SESSION['email'] = $user->getEmail();
+        $_SESSION['is_admin'] = $user->isAdmin();
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/projects");
     }
@@ -64,5 +66,34 @@ class SecurityController extends AppController {
         $this->userRepository->addUser($user);
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
+    }
+
+    public function grantAdmin() {
+        if (!$this->isPost()) {
+            return $this->render('login');
+        }
+
+        $email = $_POST['email'];
+        $post_token = $_POST['token'];
+        $admin_email = $_SESSION['email'];
+        $token = md5('bardzo-tajny_tokenAdmina');
+        $admin = $this->userRepository->getUser($admin_email);
+        if (!$admin->isAdmin()) {
+            return $this->render('login', ['messages' => ['Only admin can do this!']]);
+        }
+
+        if (md5($post_token) != $token){
+            return $this->render('admin', ['messages' => ['Wrong token']]);
+        }
+
+        $user = $this->userRepository->getUser($email);
+        $user->setAdmin(true);
+        $this->userRepository->updateUser($user);
+    }
+
+    public function admin()
+    {
+        $admin =
+        $this->render('admin');
     }
 }

@@ -10,6 +10,7 @@ Router::get('projects', 'ProjectController');
 Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::post('addproject', 'ProjectController');
+Router::get('admin', 'SecurityController');
 
 Router::run($path);
 

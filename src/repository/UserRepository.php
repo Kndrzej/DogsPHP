@@ -25,8 +25,17 @@ class UserRepository extends Repository
             $user['email'],
             $user['password'],
             $user['name'],
-            $user['surname']
+            $user['surname'],
+            $user['admin'],
+            $user['id']
         );
+    }
+
+    public function checkIsAdminByEmail(string $email): bool
+    {
+        $user = $this->getUser($email);
+
+        return $user->isAdmin();
     }
 
     public function addUser(User $user)
@@ -70,5 +79,53 @@ class UserRepository extends Repository
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         return $data['id'];
+    }
+
+    public function updateUser(User $user, bool $details = false): bool
+    {
+        $stmt = $this->database->connect()->prepare(
+            'UPDATE users SET
+                password = :password
+                admin = :admin
+             WHERE email = :email'
+        );
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $admin = $user->isAdmin();
+        $data = [
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'admin' => $admin,
+            'email' => $email,
+        ];
+
+        $return = $stmt->execute($data);
+        if ($details) {
+            $this->updateUserDetails($user);
+        }
+
+        return $return;
+    }
+
+    private function updateUserDetails(User $user): bool
+    {
+        $stmt = $this->database->connect()->prepare(
+            'UPDATE public.users_details SET
+                    name = :name,
+                    surname = :surname,
+                    phone = :phone
+                WHERE  email = :email'
+        );
+        $name = $user->getName();
+        $surname = $user->getSurname();
+        $phone = $user->getPhone();
+        $email = $user->getEmail();
+        $data = [
+            'name' => $name,
+            'surname' => $surname,
+            'phone' => $phone,
+            'email' => $email
+        ];
+
+        return $stmt->execute($data);
     }
 }

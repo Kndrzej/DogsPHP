@@ -27,7 +27,7 @@ class ProjectRepository extends Repository
         );
     }
 
-    public function addProject(Project $project): void
+    public function addProject(Project $project, User $user): void
     {
         $date = new DateTime();
         $stmt = $this->database->connect()->prepare('
@@ -35,8 +35,7 @@ class ProjectRepository extends Repository
             VALUES (?, ?, ?, ?, ?)
         ');
 
-        //TODO you should get this value from logged user session
-        $assignedById = 1;
+        $assignedById = $user->getId();
 
         $stmt->execute([
             $project->getTitle(),
