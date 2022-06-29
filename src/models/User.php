@@ -6,17 +6,20 @@ class User {
     private $name;
     private $surname;
     private $phone;
+    private $admin;
 
     public function __construct(
         string $email,
         string $password,
         string $name,
-        string $surname
+        string $surname,
+        bool $admin
     ) {
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
+        $this->admin = $admin;
     }
 
     public function getEmail(): string
@@ -57,5 +60,15 @@ class User {
     public function setPhone($phone): void
     {
         $this->phone = $phone;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(bool $admin): void
+    {
+        $this->admin = $admin;
     }
 }

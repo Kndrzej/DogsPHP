@@ -33,7 +33,7 @@ class UserRepository extends Repository
     {
         $stmt = $this->database->connect()->prepare('
             INSERT INTO users_details (name, surname, phone)
-            VALUES (?, ?, ?)
+            VALUES (?, ?, ?, ?)
         ');
 
         $stmt->execute([
@@ -43,14 +43,15 @@ class UserRepository extends Repository
         ]);
 
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (email, password, id_user_details)
-            VALUES (?, ?, ?)
+            INSERT INTO users (email, password, id_user_details, admin)
+            VALUES (?, ?, ?, ?)
         ');
 
         $stmt->execute([
             $user->getEmail(),
             $user->getPassword(),
-            $this->getUserDetailsId($user)
+            $this->getUserDetailsId($user),
+            $user->isAdmin(),
         ]);
     }
 
@@ -59,9 +60,12 @@ class UserRepository extends Repository
         $stmt = $this->database->connect()->prepare('
             SELECT * FROM public.users_details WHERE name = :name AND surname = :surname AND phone = :phone
         ');
-        $stmt->bindParam(':name', $user->getName(), PDO::PARAM_STR);
-        $stmt->bindParam(':surname', $user->getSurname(), PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $user->getPhone(), PDO::PARAM_STR);
+        $name = $user->getName();
+        $surname = $user->getSurname();
+        $phone = $user->getPhone();
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':surname', $surname, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
         $stmt->execute();
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
