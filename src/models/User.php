@@ -14,8 +14,8 @@ class User {
         string $password,
         string $name,
         string $surname,
-        bool $admin,
-        int $id
+        bool $admin = false,
+        int $id = 0
     ) {
         $this->email = $email;
         $this->password = $password;

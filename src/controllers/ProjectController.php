@@ -38,7 +38,7 @@ class ProjectController extends AppController {
             );
 
             $project = new Project($_POST['title'], $_POST['description'], $_FILES['file']['name']);
-            $this->projectRepository->addProject($project, (new UserRepository())->getUser($_SESSION['email']));
+            $this->projectRepository->addProject($project, (new UserRepository())->getUserIdByEmail($_SESSION['email']));
 
             return $this->render('projects', [
                 'messages' => $this->message,

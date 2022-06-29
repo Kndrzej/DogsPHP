@@ -27,7 +27,7 @@ class ProjectRepository extends Repository
         );
     }
 
-    public function addProject(Project $project, User $user): void
+    public function addProject(Project $project, int $id_user): void
     {
         $date = new DateTime();
         $stmt = $this->database->connect()->prepare('
@@ -35,14 +35,12 @@ class ProjectRepository extends Repository
             VALUES (?, ?, ?, ?, ?)
         ');
 
-        $assignedById = $user->getId();
-
         $stmt->execute([
             $project->getTitle(),
             $project->getDescription(),
             $project->getImage(),
             $date->format('Y-m-d'),
-            $assignedById
+            $id_user
         ]);
     }
 

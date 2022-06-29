@@ -9,7 +9,7 @@ class UserRepository extends Repository
     public function getUser(string $email): ?User
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM users u LEFT JOIN users_details ud 
+            SELECT u.id AS id_user, * FROM users u LEFT JOIN users_details ud 
             ON u.id_user_details = ud.id WHERE email = :email
         ');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -27,22 +27,27 @@ class UserRepository extends Repository
             $user['name'],
             $user['surname'],
             $user['admin'],
-            $user['id']
+            $user['id_user']
         );
     }
 
-    public function checkIsAdminByEmail(string $email): bool
+    public function getUserIdByEmail(string $email): int
     {
         $user = $this->getUser($email);
 
-        return $user->isAdmin();
+        return $user->getId();
+    }
+
+    public function checkIsAdminByEmai()
+    {
+
     }
 
     public function addUser(User $user)
     {
         $stmt = $this->database->connect()->prepare('
             INSERT INTO users_details (name, surname, phone)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?)
         ');
 
         $stmt->execute([
@@ -53,15 +58,18 @@ class UserRepository extends Repository
 
         $stmt = $this->database->connect()->prepare('
             INSERT INTO users (email, password, id_user_details, admin)
-            VALUES (?, ?, ?, ?)
+            VALUES (:email, :password, :id_user_details, :admin)
         ');
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $id_user_details = $this->getUserDetailsId($user);
+        $admin = $user->isAdmin();
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':id_user_details', $id_user_details, PDO::PARAM_INT);
+        $stmt->bindParam(':admin', $admin, PDO::PARAM_BOOL);
 
-        $stmt->execute([
-            $user->getEmail(),
-            $user->getPassword(),
-            $this->getUserDetailsId($user),
-            $user->isAdmin(),
-        ]);
+        $stmt->execute();
     }
 
     public function getUserDetailsId(User $user): int
@@ -85,20 +93,18 @@ class UserRepository extends Repository
     {
         $stmt = $this->database->connect()->prepare(
             'UPDATE users SET
-                password = :password
+                password = :password,
                 admin = :admin
              WHERE email = :email'
         );
         $email = $user->getEmail();
         $password = $user->getPassword();
         $admin = $user->isAdmin();
-        $data = [
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'admin' => $admin,
-            'email' => $email,
-        ];
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':admin', $admin, PDO::PARAM_BOOL);
+        $stmt->bindParam(':email', $email);
 
-        $return = $stmt->execute($data);
+        $return = $stmt->execute();
         if ($details) {
             $this->updateUserDetails($user);
         }

@@ -14,7 +14,7 @@
         <img src="public/img/dog.jpg">
     </div>
     <div class="login-container">
-        <form class="login" action="grantAdmin" method="POST">
+        <form class="login" action="grantadmin" method="POST">
             <div class="messages">
                 <?php
                 if(isset($messages)){

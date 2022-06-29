@@ -11,6 +11,7 @@ Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::post('addproject', 'ProjectController');
 Router::get('admin', 'SecurityController');
+Router::post('grantadmin', 'SecurityController');
 
 Router::run($path);
 

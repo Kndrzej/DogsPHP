@@ -20,6 +20,9 @@ class SecurityController extends AppController {
             return $this->render('login');
         }
 
+        unset($_SESSION['email']);
+        unset($_SESSION['is_admin']);
+
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -68,7 +71,7 @@ class SecurityController extends AppController {
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
     }
 
-    public function grantAdmin() {
+    public function grantadmin() {
         if (!$this->isPost()) {
             return $this->render('login');
         }
@@ -87,13 +90,22 @@ class SecurityController extends AppController {
         }
 
         $user = $this->userRepository->getUser($email);
+        if (!$user) {
+            $this->render('admin', ['messages' => ['User with this email not exist!']]);
+        }
+        
         $user->setAdmin(true);
         $this->userRepository->updateUser($user);
+
+        $this->render('admin', ['messages' => ['Success!']]);
     }
 
     public function admin()
     {
-        $admin =
+        if (!$this->userRepository->getUser($_SESSION['email'])->isAdmin()) {
+            return $this->render('login', ['messages' => ['Only admin can do this!']]);
+        }
+
         $this->render('admin');
     }
 }
