@@ -65,7 +65,7 @@ class SecurityController extends AppController {
             return $this->render('register', ['messages' => ['Please provide proper password']]);
         }
 
-        $user = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $surname);
+        $user = new User($email, password_hash($password, PASSWORD_DEFAULT, ['salt']), $name, $surname);
         $user->setPhone($phone);
 
         $this->userRepository->addUser($user);

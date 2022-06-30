@@ -24,15 +24,14 @@
         </tr>
                 <?php
                 if(isset($users)){
-                    print_r($users);
-                    foreach($users as $user) {
+                    foreach($users[0] as $user) {
                         echo '<tr>
-                            <td>'.$user[0].'</td>
-                            <td>'.$user[1].'</td>
-                            <td>'.$user[2].'</td>
-                            <td>'.$user[3].'</td>
-                            <td>'.$user[4].'</td>
-                            <td>'.$user[5].'</td>
+                            <td>'.$user['id_user'].'</td>
+                            <td>'.$user['email'].'</td>
+                            <td>'.$user['name'].'</td>
+                            <td>'.$user['surname'].'</td>
+                            <td>'.$user['phone'].'</td>
+                            <td>'.$user['is_admin'].'</td>
                         </tr>';
                     }
                 }

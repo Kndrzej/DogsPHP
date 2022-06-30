@@ -30,7 +30,7 @@ class AdminController extends AppController {
 
         $this->userRepository->createUsersView();
         $users = $this->userRepository->selectUsersView();
-var_dump($users[0]);
+
         return $this->render('showusers', ['users' => [$users]]);
     }
 }

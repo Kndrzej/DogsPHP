@@ -154,6 +154,6 @@ class UserRepository extends Repository
         $stmt = $this->database->connect()->query('SELECT * FROM vw_users');
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
