@@ -13,12 +13,6 @@
     <div class="logo">
         <img src="public/img/dog.jpg">
     </div>
-    u.id AS id_user,
-    u.email,
-    ud.name,
-    ud.surname,
-    ud.phone,
-    IF(u.admin, "YES", "NO") AS is_admin
     <table>
         <tr>
             <th>id_user</th>
@@ -30,14 +24,15 @@
         </tr>
                 <?php
                 if(isset($users)){
+                    print_r($users);
                     foreach($users as $user) {
                         echo '<tr>
-                            <td>'.$user['id_user'].'</td>
-                            <td>'.$user['email'].'</td>
-                            <td>'.$user['name'].'</td>
-                            <td>'.$user['surname'].'</td>
-                            <td>'.$user['phone'].'</td>
-                            <td>'.$user['is_admin'].'</td>
+                            <td>'.$user[0].'</td>
+                            <td>'.$user[1].'</td>
+                            <td>'.$user[2].'</td>
+                            <td>'.$user[3].'</td>
+                            <td>'.$user[4].'</td>
+                            <td>'.$user[5].'</td>
                         </tr>';
                     }
                 }

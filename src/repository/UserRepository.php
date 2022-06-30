@@ -140,14 +140,20 @@ class UserRepository extends Repository
                 ud.name,
                 ud.surname,
                 ud.phone,
-                IF(u.admin, "YES", "NO") AS is_admin
+                CASE
+                    WHEN u.admin = TRUE THEN \'YES\'
+                    ELSE \'NO\'
+                END AS is_admin
             FROM users u
             LEFT JOIN users_details ud ON u.id_user_details = ud.id'
         );
     }
 
-    public function selectUsersView(): bool|int // union types PHP >= 8.0
+    public function selectUsersView()
     {
-        return $this->database->connect()->exec('SELECT * FROM vw_users');
+        $stmt = $this->database->connect()->query('SELECT * FROM vw_users');
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }
