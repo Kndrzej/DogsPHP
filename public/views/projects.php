@@ -27,7 +27,7 @@
             </li>
             <li>
                 <i class="fas fa-project-diagram"></i>
-                <a href="#" class="button">projects</a>
+                <a href="logout" class="button">LOGOUT</a>
             </li>
         </ul>
     </nav>

@@ -21,6 +21,10 @@ class ProjectController extends AppController {
 
     public function projects()
     {
+        if (!isset($_SESSION['email'])) {
+            return $this->render('login', ['messages' => ['Please log in first']]);
+        }
+
         $projects = $this->projectRepository->getProjects();
         $this->render('projects', ['projects' => $projects]);
     }

@@ -38,11 +38,6 @@ class UserRepository extends Repository
         return $user->getId();
     }
 
-    public function checkIsAdminByEmai()
-    {
-
-    }
-
     public function addUser(User $user)
     {
         $stmt = $this->database->connect()->prepare('
@@ -106,7 +101,7 @@ class UserRepository extends Repository
 
         $return = $stmt->execute();
         if ($details) {
-            $this->updateUserDetails($user);
+            $return &= $this->updateUserDetails($user);
         }
 
         return $return;
@@ -133,5 +128,26 @@ class UserRepository extends Repository
         ];
 
         return $stmt->execute($data);
+    }
+
+    public function createUsersView()
+    {
+        $this->database->connect()->exec(
+            'CREATE OR REPLACE VIEW vw_users AS
+            SELECT
+                u.id AS id_user,
+                u.email,
+                ud.name,
+                ud.surname,
+                ud.phone,
+                IF(u.admin, "YES", "NO") AS is_admin
+            FROM users u
+            LEFT JOIN users_details ud ON u.id_user_details = ud.id'
+        );
+    }
+
+    public function selectUsersView(): bool|int // union types PHP >= 8.0
+    {
+        return $this->database->connect()->exec('SELECT * FROM vw_users');
     }
 }

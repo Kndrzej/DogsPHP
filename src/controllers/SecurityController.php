@@ -17,11 +17,13 @@ class SecurityController extends AppController {
     public function login()
     {
         if (!$this->isPost()) {
+            if (isset($_SESSION['email'])) {
+                $url = "http://$_SERVER[HTTP_HOST]";
+                header("Location: {$url}/projects");
+            }
+
             return $this->render('login');
         }
-
-        unset($_SESSION['email']);
-        unset($_SESSION['is_admin']);
 
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -93,19 +95,18 @@ class SecurityController extends AppController {
         if (!$user) {
             $this->render('admin', ['messages' => ['User with this email not exist!']]);
         }
-        
+
         $user->setAdmin(true);
         $this->userRepository->updateUser($user);
 
         $this->render('admin', ['messages' => ['Success!']]);
     }
 
-    public function admin()
+    public function logout()
     {
-        if (!$this->userRepository->getUser($_SESSION['email'])->isAdmin()) {
-            return $this->render('login', ['messages' => ['Only admin can do this!']]);
-        }
+        session_destroy();
 
-        $this->render('admin');
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/login");
     }
 }
